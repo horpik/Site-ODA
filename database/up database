@@ -1,0 +1,68 @@
+DROP TABLE user_types;
+DROP TABLE photos;
+DROP TABLE services;
+DROP TABLE users;
+
+CREATE TABLE user_types (
+    user_type_id INT AUTO_INCREMENT PRIMARY KEY,
+    description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE photos (
+    photo_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    path VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE services (
+    service_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    photo_id INT NOT NULL,
+    FOREIGN KEY (photo_id) REFERENCES photos(photo_id)
+);
+
+CREATE TABLE users (
+    user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    login VARCHAR(255) NOT NULL,
+    password TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    user_type_id INT NOT NULL,
+    accsess INT NOT NULL, 
+    FOREIGN KEY (user_type_id) REFERENCES user_types(user_type_id),
+    UNIQUE KEY (login),
+    UNIQUE KEY (email)
+);
+
+
+INSERT INTO user_types (description) VALUES 
+('admin'),
+('user');
+
+INSERT INTO photos (path) VALUES 
+('/assets/images/empl1.jpg'),
+('/assets/images/empl2.jpg'),
+('/assets/images/photo1.jpg'),
+('/assets/images/photo2.jpg'),
+('/assets/images/photo3.jpg'),
+('/assets/images/img1.jpg'),
+('/assets/images/img2.jpg'),
+('/assets/images/img3.jpeg'),
+('/assets/images/img4.jpeg');
+
+INSERT INTO services (name, description, price, photo_id) VALUES 
+('Стрижка женская', 'Профессиональная женская стрижка', 600, 8),
+('Стрижка детская', 'Профессиональная детская стрижка', 450, 9),
+('Причёска и укладка', 'Профессиональная укладка на ваши волосы', 800, 6),
+('Причёска и укладка', 'Профессиональная укладка на ваши волосы', 800, 6),
+('Причёска и укладка', 'Профессиональная укладка на ваши волосы', 800, 6),
+('Причёска и укладка', 'Профессиональная укладка на ваши волосы', 800, 6),
+('Причёска и укладка', 'Профессиональная укладка на ваши волосы', 800, 6),
+('Причёска и укладка', 'Профессиональная укладка на ваши волосы', 800, 6),
+('Стрижка для самых маленьких', 'Профессиональная женская стрижка', 450, 7);
+
+INSERT INTO users (login, password, email, user_type_id, accsess) VALUES 
+('admin', 'admin', 'test1@my.ru', 1, 1),
+('user1', '1111','user1@my.ru', 2, 1),
+('user2', '1111','user2@my.ru', 2, 1);
+
